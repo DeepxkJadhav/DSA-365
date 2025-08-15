@@ -1,7 +1,9 @@
 
 Day 2 – Two Sum (3 Ways)
 
-
+## Problem Statement
+Given an array of integers and a target value, return indices of the two numbers that sum up to the target.  
+ The twist: Solve it using 3 different approaches.
 
 # Approach 1: Hash Map (O(n))
 
@@ -53,3 +55,10 @@ if __name__ == "__main__":
     print("Hash Map:", two_sum_hash(nums, target))
     print("Two Pointer:", two_sum_two_pointer(nums, target))
     print("Binary Search:", two_sum_binary_search(nums, target))
+
+📌 Lesson Learned:** Always squeeze more juice out of a simple problem — it’s free training.
+
+## Key Python Tricks 
+- Dictionary lookups for O(1) search.
+- `sorted((value, index) for index, value in enumerate(nums))` for preserving original indices.
+- `bisect.bisect_left` for binary search on sorted tuples.
