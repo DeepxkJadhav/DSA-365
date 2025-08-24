@@ -1,0 +1,40 @@
+Problem:
+
+Find the pair of elements in a sorted array whose sum is closest to a target value.
+
+Problem Explanation:
+You are given a sorted array of integers, and a target integer. Your task is to find two numbers in the array such that their sum is closest to the target number.
+
+Approach:
+
+1.Use two pointers: one starting at the beginning (left = 0) and the other at the end (right = len(arr) - 1).
+2.Calculate the sum of the two numbers at these pointers.
+3.If the sum is less than the target, increment the left pointer (left += 1) to increase the sum.
+4.If the sum is greater than the target, decrement the right pointer (right -= 1) to decrease the sum.
+5.Keep track of the closest sum while moving the pointers until they meet.
+
+Code : def closest_pair_sum(arr, target):
+    left, right = 0, len(arr) - 1
+    closest_sum = float('inf')
+    
+    while left < right:
+        current_sum = arr[left] + arr[right]
+        
+        # Check if this is the closest sum
+        if abs(current_sum - target) < abs(closest_sum - target):
+            closest_sum = current_sum
+        
+        # Move the pointers based on the sum
+        if current_sum < target:
+            left += 1
+        elif current_sum > target:
+            right -= 1
+        else:
+            break  # If current_sum == target, we've found the best possible sum
+    
+    return closest_sum
+
+# Example
+arr = [-1, 2, 3, 5, 9, 10]
+target = 12
+print(closest_pair_sum(arr, target))  # Output: 12
