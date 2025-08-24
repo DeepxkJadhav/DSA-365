@@ -1,0 +1,60 @@
+Problem: Design and implement a circular queue using an array.
+
+Problem Explanation:
+A circular queue is a linear data structure that follows the FIFO (First In First Out) principle. The last position is connected back to the first, creating a circular structure.
+
+Approach:
+1.Use a fixed-size array to store the queue elements.
+2.Use two pointers, front and rear, to manage the queue’s front and rear ends.
+3.The queue is full when (rear + 1) % capacity == front.
+4.The queue is empty when front == rear.
+
+Code:
+class CircularQueue:
+    def __init__(self, size):
+        self.size = size
+        self.queue = [None] * size
+        self.front = self.rear = -1
+    
+    def enqueue(self, value):
+        if (self.rear + 1) % self.size == self.front:
+            print("Queue is full!")
+        elif self.front == -1:
+            self.front = self.rear = 0
+            self.queue[self.rear] = value
+        else:
+            self.rear = (self.rear + 1) % self.size
+            self.queue[self.rear] = value
+
+    def dequeue(self):
+        if self.front == -1:
+            print("Queue is empty!")
+        elif self.front == self.rear:
+            self.front = self.rear = -1
+        else:
+            self.front = (self.front + 1) % self.size
+
+    def display(self):
+        if self.front == -1:
+            print("Queue is empty!")
+        else:
+            i = self.front
+            while True:
+                print(self.queue[i], end=" ")
+                if i == self.rear:
+                    break
+                i = (i + 1) % self.size
+            print()
+
+# Example
+cq = CircularQueue(5)
+cq.enqueue(10)
+cq.enqueue(20)
+cq.enqueue(30)
+cq.display()  # Output: 10 20 30
+cq.dequeue()
+cq.display()  # Output: 20 30
+
+Explanation:
+The circular queue ensures that we efficiently use the space in the array by wrapping around when the rear pointer reaches the end.
+The time complexity for both enqueue and dequeue operations is O(1).
