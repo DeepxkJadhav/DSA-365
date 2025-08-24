@@ -1,0 +1,32 @@
+Problem: Given a rotated sorted array, find the index of a target element.
+
+Problem Explanation:
+You are given an array that is originally sorted in ascending order, but has been rotated at some pivot point. The task is to find the index of a target element in O(log n) time.
+
+Approach:
+1.Use binary search to find the pivot (the point of rotation).
+2.Depending on whether the pivot is to the left or right, determine the range where the target element could lie.
+3.Perform binary search in the appropriate half.  
+ 
+Code: 
+def search_rotated_array(arr, target):
+    left, right = 0, len(arr) - 1
+    
+    while left <= right:
+        mid = (left + right) // 2
+        
+        if arr[mid] == target:
+            return mid
+        
+        if arr[left] <= arr[mid]:
+            if arr[left] <= target < arr[mid]:
+                right = mid - 1
+            else:
+                left = mid + 1
+        else:
+            if arr[mid] < target <= arr[right]:
+                left = mid + 1
+            else:
+                right = mid - 1
+                
+    return
