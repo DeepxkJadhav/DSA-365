@@ -1,0 +1,38 @@
+Problem: Find all unique combinations where numbers sum to target (reuse allowed).
+
+Approach:
+
+Backtracking with pick/not pick
+For pick: stay on current index (reuse allowed)
+For not pick: move to next index
+
+Base case: target == 0 → add current combination
+
+Tips:
+Avoid duplicates by managing indexes properly
+Pass current combination list
+Stop when target < 0
+
+Code:
+
+def combinationSum(index, arr, target, current, result):
+    if target == 0:
+        result.append(current[:])
+        return
+    if index == len(arr) or target < 0:
+        return
+
+    # Pick current
+    combinationSum(index, arr, target - arr[index], current + [arr[index]], result)
+    # Not pick current
+    combinationSum(index + 1, arr, target, current, result)
+
+# Usage
+arr = [2,3,6,7]
+result = []
+combinationSum(0, arr, 7, [], result)
+print(result)
+
+
+Stuck: Managing recursion and pruning
+Solved: Visualize recursion tree, carefully handle pick/not pick
