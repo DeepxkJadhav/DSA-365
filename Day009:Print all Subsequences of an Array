@@ -1,0 +1,52 @@
+🛤️ **Day 9 Journey: Print All Subsequences
+
+ 📌 Problem:
+Print all subsequences (all subsets) of a given array.
+
+🎯 Approach:
+
+* Use **recursion** with a **pick or not pick** choice at each element.
+* At every step, decide **include current element** or **exclude current element** and recurse.
+* When you reach the end of the array, print the subsequence formed.
+
+
+💡 Tips:
+
+* Maintain a **current subsequence list** and pass it in recursive calls (use new list to avoid mutation).
+* The recursion tree size is **O(2^n)** because each element has two choices.
+* Base case triggers when index == length of array, print subsequence.
+* Use **debug prints** to understand recursive flow if stuck.
+
+ 🔥 Code Snippet:
+python
+def printSubsequences(index, arr, current):
+    if index == len(arr):
+        print(current)
+        return
+
+    # Pick current element
+    printSubsequences(index + 1, arr, current + [arr[index]])
+    
+    # Not pick current element
+    printSubsequences(index + 1, arr, current)
+
+# Example
+arr = [1, 2, 3]
+printSubsequences(0, arr, [])
+```
+
+ ⚠️ Where you might get stuck:
+
+* Forgetting base case
+* Mutating shared lists (pass a new list each time)
+* Confusing “include” vs “exclude” logic
+
+✅ How I solved it:
+
+* Visualized recursion as a binary tree (each node has two children: pick or not pick).
+* Added print statements for each recursive call to track current subsequence.
+* Practiced small inputs first to see results.
+
+---
+
+Feel free to try the code and share your experience! Ready for Day 10 when you are. 🚀
