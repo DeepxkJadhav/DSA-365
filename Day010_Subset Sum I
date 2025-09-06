@@ -1,0 +1,54 @@
+#🛤️ **Day 10 Journey: Subset Sum I
+📌 Problem: Given an array of integers, find all possible subset sums.
+
+Example:
+Input: [1, 2]  
+Output: [0, 1, 2, 3]  
+Explanation: Subsets are [], [1], [2], [1,2]; sums are 0,1,2,3  
+
+ 🎯 Approach:
+
+* Use **recursion** with **pick or not pick** pattern.
+* At each element, either **include it in sum** or **exclude it**.
+* When reaching end of array, record current sum in results.
+
+💡 Tips:
+
+* Pass the **current sum** as a parameter during recursion.
+* Use a **result list** to collect sums at base case.
+* Avoid duplicates by using a set if input has duplicates (optional).
+* Time complexity: O(2^n), exponential due to subsets.
+
+
+
+🔥 Code Snippet:
+
+```python
+def subsetSums(index, arr, current_sum, result):
+    if index == len(arr):
+        result.append(current_sum)
+        return
+    
+    # Pick element
+    subsetSums(index + 1, arr, current_sum + arr[index], result)
+    
+    # Not pick element
+    subsetSums(index + 1, arr, current_sum, result)
+
+# Example usage
+arr = [1, 2]
+result = []
+subsetSums(0, arr, 0, result)
+print(sorted(result))  # Output: [0, 1, 2, 3]
+
+⚠️ Where you might get stuck:
+
+* Missing base case
+* Forgetting to pass current sum correctly
+* Misunderstanding recursion tree structure
+
+✅ How I solved it:
+
+* Visualized subset sums as a binary recursion tree.
+* Added debug prints to verify current sums at each recursive step.
+* Tested with small arrays first to ensure correctness.
