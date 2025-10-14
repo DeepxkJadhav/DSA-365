@@ -1,0 +1,54 @@
+# Question:
+You are given an array nums containing n distinct numbers taken from 0, 1, 2, ..., n.
+Find the one number that is missing from the array.
+
+Example:
+  Input: nums = [3, 0, 1]
+     Output: 2
+  Input: nums = [0, 1]
+     Output: 2
+
+# Understanding:
+The array should have all numbers from 0 to n, but one is gone.
+We must figure out which one.
+
+There are a few ways:
+Brute force → check for every number (O(n²)) — not good.
+Sorting → find the gap (O(n log n)) — better.
+Math → sum(0…n) − sum(nums) = missing number (O(n)) — best.
+XOR → XOR all indices and nums; remaining gives missing (O(n)) — cool trick.
+We’ll use the math approach — clean and fast.
+
+@ Code:
+def missingNumber(nums):
+    n = len(nums)
+    expected_sum = n * (n + 1) // 2
+    actual_sum = sum(nums)
+    return expected_sum - actual_sum
+
+
+# Example Run
+nums = [3, 0, 1]
+print("Missing number:", missingNumber(nums))
+
+
+##Explanation
+.If numbers from 0 to n were complete, their sum would be n*(n+1)/2.
+.We calculate what we actually got (sum of array).
+.The difference = the missing number.
+.Simple math, no loops beyond sum().
+    Time complexity: O(n)
+   Space complexity: O(1)
+
+##Pro Tip
+For large datasets or streaming input, prefer the XOR method since it doesn’t rely on integer overflow and uses bitwise ops:
+
+def missingNumber_XOR(nums):
+    xor_all = 0
+    for i, num in enumerate(nums):
+        xor_all ^= i ^ num
+    xor_all ^= len(nums)
+    return xor_all
+
+
+Super efficient and immune to overflow issues.
