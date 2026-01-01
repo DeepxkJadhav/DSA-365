@@ -1,0 +1,62 @@
+🔹 Problem
+
+Given an array of distinct integers, return all possible permutations.
+
+Input:
+nums = [1,2,3]
+
+Output:
+
+[
+ [1,2,3],
+ [1,3,2],
+ [2,1,3],
+ [2,3,1],
+ [3,1,2],
+ [3,2,1]
+]
+
+Python Solution ;
+
+def permute(nums):
+    result = []
+
+    def backtrack(path, used):
+        if len(path) == len(nums):
+            result.append(path[:])
+            return
+
+        for i in range(len(nums)):
+            if used[i]:
+                continue
+
+            used[i] = True
+            path.append(nums[i])
+
+            backtrack(path, used)
+
+            # backtrack
+            path.pop()
+            used[i] = False
+
+    backtrack([], [False] * len(nums))
+    return result
+
+
+# Example
+nums = [1, 2, 3]
+print(permute(nums))
+
+⏱️ Complexity
+Time: O(n × n!)
+Space: O(n) recursion stack (excluding output)
+This is optimal. Don’t try to over-optimize nonsense.
+
+
+Logic Tips – Permutations (Backtracking)
+🔹 Core Logic (non-negotiable)
+Permutation = arrangement
+Arrangement means order matters, so:
+You cannot reuse an element
+You must try every element at every position
+If order didn’t matter → it would be combinations, not permutations.
