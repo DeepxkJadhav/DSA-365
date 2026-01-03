@@ -1,0 +1,42 @@
+Que.Problem
+Given an integer array nums that may contain duplicates, return all unique subsets.
+
+Input
+nums = [1,2,2]
+
+Output
+[
+ [],
+ [1],
+ [1,2],
+ [1,2,2],
+ [2],
+ [2,2]
+]
+
+SOLUTION: 
+def subsetsWithDup(nums):
+    nums.sort()
+    result = []
+
+    def backtrack(start, path):
+        result.append(path[:])
+
+        for i in range(start, len(nums)):
+            # skip duplicates at same tree level
+            if i > start and nums[i] == nums[i - 1]:
+                continue
+
+            path.append(nums[i])
+            backtrack(i + 1, path)
+            path.pop()
+
+    backtrack(0, [])
+    return result
+
+
+ #Logic Tips (THIS is the important part)
+ @ Why i > start matters
+i == start → same branch, allowed
+i > start + same number → duplicate subset → skip
+This condition prevents duplicate subsets, not duplicate numbers.
