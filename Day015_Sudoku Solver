@@ -1,0 +1,49 @@
+##Problem
+Solve a 9×9 Sudoku board in-place.
+
+@@Rules:
+Each row → digits 1–9 exactly once
+Each column → digits 1–9 exactly once
+Each 3×3 box → digits 1–9 exactly once
+Empty cells are '.'
+
+
+SOlution : 
+
+def solveSudoku(board):
+
+    def isValid(row, col, ch):
+        # row check
+        for c in range(9):
+            if board[row][c] == ch:
+                return False
+
+        # column check
+        for r in range(9):
+            if board[r][col] == ch:
+                return False
+
+        # 3x3 box check
+        startRow = (row // 3) * 3
+        startCol = (col // 3) * 3
+        for r in range(startRow, startRow + 3):
+            for c in range(startCol, startCol + 3):
+                if board[r][c] == ch:
+                    return False
+
+        return True
+
+    def backtrack():
+        for row in range(9):
+            for col in range(9):
+                if board[row][col] == ".":
+                    for ch in "123456789":
+                        if isValid(row, col, ch):
+                            board[row][col] = ch
+                            if backtrack():
+                                return True
+                            board[row][col] = "."
+                    return False
+        return True
+
+    backtrack()
